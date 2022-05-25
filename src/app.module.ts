@@ -13,6 +13,8 @@ import { StateModule } from './state/state.module';
 import { CityModule } from './city/city.module';
 import { AuthModule } from './auth/auth.module';
 import { TruckModule } from './truck/truck.module';
+import { LoadModule } from './load/load.module';
+import { ClientModule } from './client/client.module';
 
 @Module({
   imports: [
@@ -32,6 +34,8 @@ import { TruckModule } from './truck/truck.module';
       synchronize: true
     }),
     TruckModule,
+    LoadModule,
+    ClientModule,
   ],
   controllers: [AppController],
   providers: [AppService],

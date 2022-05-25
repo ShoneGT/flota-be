@@ -1,11 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 import { CreateTruckDto } from './dto/create-truck.dto';
 import { UpdateTruckDto } from './dto/update-truck.dto';
+import { Truck } from './entities/truck.entity';
 
 @Injectable()
 export class TruckService {
+  constructor(@InjectRepository(Truck) private repo: Repository<Truck>) { }
+
   create(createTruckDto: CreateTruckDto) {
-    return 'This action adds a new truck';
+    const truck = this.repo.create(createTruckDto)
+
+    return this.repo.save(truck)
   }
 
   findAll() {

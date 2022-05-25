@@ -14,7 +14,7 @@ export class CreateTruckDto {
   year: string
 
   @IsString()
-  miles: string
+  miles: number
 
   @IsString()
   vin: string
