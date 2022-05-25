@@ -9,7 +9,7 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number
 
-  @Column()
+  @Column({ default: new Date() })
   created_at: string
 
   @Column()
@@ -25,16 +25,16 @@ export class User {
   @Exclude()
   password: string
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: true })
   phone: string
 
-  @Column()
+  @Column({ nullable: true })
   address: string
 
-  @Column()
+  @Column({ nullable: true })
   note: string
 
-  @Column()
+  @Column({ nullable: true })
   dob: Date
 
   @OneToOne(() => Role)
