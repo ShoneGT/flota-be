@@ -1,0 +1,21 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    restart: unless-stopped
+    ports:
+      - '54323:5432'
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: SuperPass
+    volumes:
+      - .docker-data/postgres:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: shone@shone.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+       - '5001:80'
