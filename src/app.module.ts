@@ -8,6 +8,10 @@ import { Role } from './role/entities/role.entity';
 import { City } from './city/entities/city.entity'
 import { State } from './state/entities/state.entity'
 import { Truck } from './truck/entities/truck.entity';
+import { TruckUser } from './truck/entities/truck.entity';
+import { Load } from './load/entities/load.entity';
+import { LoadTruck } from './load/entities/load.entity';
+
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { StateModule } from './state/state.module';
 import { CityModule } from './city/city.module';
@@ -30,7 +34,16 @@ import { ClientModule } from './client/client.module';
       username: 'root',
       password: 'SuperPass',
       database: 'postgres',
-      entities: [User, Role, City, State, Truck],
+      entities: [
+        User,
+        Role,
+        City,
+        State,
+        Truck,
+        TruckUser,
+        Load,
+        LoadTruck
+      ],
       synchronize: true
     }),
     TruckModule,

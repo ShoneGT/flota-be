@@ -1,8 +1,9 @@
-import { Entity, Column, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Entity, Column, JoinColumn, OneToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { Exclude } from 'class-transformer';
 import Role from 'src/role/entities/role.entity'
 import State from 'src/state/entities/state.entity'
 import City from 'src/city/entities/city.entity'
+import { TruckUser } from 'src/truck/entities/truck.entity';
 
 @Entity()
 export class User {
@@ -48,5 +49,8 @@ export class User {
   @OneToOne(() => City)
   @JoinColumn()
   city: City
+
+  @OneToMany(() => TruckUser, truckUser => truckUser.truckId)
+  public TruckUser!: TruckUser[];
 
 }
