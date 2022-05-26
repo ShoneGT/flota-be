@@ -3,7 +3,7 @@ import { Exclude } from 'class-transformer';
 import Role from 'src/role/entities/role.entity'
 import State from 'src/state/entities/state.entity'
 import City from 'src/city/entities/city.entity'
-import { TruckUser } from 'src/truck/entities/truck.entity';
+import { TruckUser } from 'src/truck-user/entities/truck-user.entity';
 
 @Entity()
 export class User {

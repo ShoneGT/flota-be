@@ -8,9 +8,9 @@ import { Role } from './role/entities/role.entity';
 import { City } from './city/entities/city.entity'
 import { State } from './state/entities/state.entity'
 import { Truck } from './truck/entities/truck.entity';
-import { TruckUser } from './truck/entities/truck.entity';
+import { TruckUser } from './truck-user/entities/truck-user.entity';
 import { Load } from './load/entities/load.entity';
-import { LoadTruck } from './load/entities/load.entity';
+import { LoadTruck } from './load-truck/entities/load-truck.entity';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { StateModule } from './state/state.module';
@@ -19,6 +19,8 @@ import { AuthModule } from './auth/auth.module';
 import { TruckModule } from './truck/truck.module';
 import { LoadModule } from './load/load.module';
 import { ClientModule } from './client/client.module';
+import { LoadTruckModule } from './load-truck/load-truck.module';
+import { TruckUserModule } from './truck-user/truck-user.module';
 
 @Module({
   imports: [
@@ -49,6 +51,8 @@ import { ClientModule } from './client/client.module';
     TruckModule,
     LoadModule,
     ClientModule,
+    LoadTruckModule,
+    TruckUserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -16,7 +16,7 @@ export class TruckService {
   }
 
   findAll() {
-    return `This action returns all truck`;
+    return this.repo.find()
   }
 
   findOne(id: number) {
