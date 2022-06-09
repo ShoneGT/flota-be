@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, NotFoundException, HttpStatus, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -17,12 +17,12 @@ export class UserService {
       ...createUserDto,
       password: hashedPassword
     })
-    // user.password = undefined;
     return this.repo.save(user)
   }
 
   findAll() {
-    return this.repo.find()
+    return this.repo.find({ relations: ['role'] })
+    // return this.repo.find()
   }
 
   async findByEmail(email: string) {
@@ -40,8 +40,19 @@ export class UserService {
     return this.repo.findOne(id)
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: Partial<UpdateUserDto>) {
+
+    await this.repo.update(id, updateUserDto);
+
+    const user = await this.repo.findOne(id, { relations: ['role']} );
+
+    if (user) {
+      return user
+    }
+    throw new NotFoundException(id);
+
+    // if (!user) throw new NotFoundException('User not found');
+
   }
 
   remove(id: number) {

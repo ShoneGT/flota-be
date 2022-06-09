@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, BadRequestException, Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
 const bcrypt = require('bcrypt');
@@ -10,24 +10,22 @@ export class AuthService {
     private jwtService: JwtService
   ) { }
 
-  // async validateUser(username: string, pass: string): Promise<any> {
-  //   console.log('validateeee');
-  //   const user = await this.userService.findOne(username);
-  //   if (user && user.password === pass) {
-  //     const { password, ...result } = user;
-  //     return result;
-  //   }
-  //   return null;
-  // }
+
   async validateUser(email: string, pass: string): Promise<any> {
-    console.log('validatetetetetet');
     const user = await this.userService.findByEmail(email)
+
+    if (!user) {
+      throw new BadRequestException('Wrong credentials');
+    }
+
     await AuthService.verifyPassword(pass, user.password);
-    user.password = undefined;
-    return user;
+
+    const { password, ...result } = user;
+    return result;
   }
 
   private static async verifyPassword(plainTextPassword: string, hashedPassword: string) {
+    console.log('validate', plainTextPassword)
     const isPasswordMatching = await bcrypt.compare(
       plainTextPassword,
       hashedPassword
@@ -38,13 +36,10 @@ export class AuthService {
   }
 
   async login(user: any) {
-    const payload = { email: user.email, sub: user.userId };
-    console.log('user iz auth login', user);
-    const userObj = await this.userService.findByEmail(user.email)
-    userObj.password = undefined
+    const payload = { email: user.email, sub: user.id };
     return {
-      access_token: this.jwtService.sign(payload),
-      userObj
+      accessToken: this.jwtService.sign(payload),
+      user,
     };
   }
 }

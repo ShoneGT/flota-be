@@ -21,6 +21,9 @@ import { LoadModule } from './load/load.module';
 import { ClientModule } from './client/client.module';
 import { LoadTruckModule } from './load-truck/load-truck.module';
 import { TruckUserModule } from './truck-user/truck-user.module';
+import { Client } from './client/entities/client.entity';
+import { ClientLoadModule } from './client-load/client-load.module';
+import { ClientLoad } from './client-load/entities/client-load.entity';
 
 @Module({
   imports: [
@@ -44,7 +47,9 @@ import { TruckUserModule } from './truck-user/truck-user.module';
         Truck,
         TruckUser,
         Load,
-        LoadTruck
+        LoadTruck,
+        Client,
+        ClientLoad
       ],
       synchronize: true
     }),
@@ -53,6 +58,7 @@ import { TruckUserModule } from './truck-user/truck-user.module';
     ClientModule,
     LoadTruckModule,
     TruckUserModule,
+    ClientLoadModule,
   ],
   controllers: [AppController],
   providers: [AppService],
