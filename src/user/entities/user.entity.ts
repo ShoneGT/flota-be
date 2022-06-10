@@ -1,56 +1,62 @@
-import { Entity, Column, JoinColumn, OneToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Entity,
+  Column,
+  JoinColumn,
+  OneToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Exclude } from 'class-transformer';
-import Role from 'src/role/entities/role.entity'
-import State from 'src/state/entities/state.entity'
-import City from 'src/city/entities/city.entity'
+import Role from 'src/role/entities/role.entity';
+import State from 'src/state/entities/state.entity';
+import City from 'src/city/entities/city.entity';
 import { TruckUser } from 'src/truck-user/entities/truck-user.entity';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  id: number
+  id: number;
 
   @Column({ default: new Date() })
-  created_at: string
+  created_at: string;
 
   @Column()
-  firstName: string
+  firstName: string;
 
   @Column()
-  lastName: string
+  lastName: string;
 
   @Column({ unique: true })
-  email: string
+  email: string;
 
   @Column()
   @Exclude()
-  password: string
+  password: string;
 
   @Column({ unique: true, nullable: true })
-  phone: string
+  phone: string;
 
   @Column({ nullable: true })
-  address: string
+  address: string;
 
   @Column({ nullable: true })
-  note: string
+  note: string;
 
   @Column({ nullable: true })
-  dob: Date
+  dob: Date;
 
   @OneToOne(() => Role)
   @JoinColumn()
-  role: Role
+  role: Role;
 
   @OneToOne(() => State)
   @JoinColumn()
-  state: State
+  state: State;
 
   @OneToOne(() => City)
   @JoinColumn()
-  city: City
+  city: City;
 
-  @OneToMany(() => TruckUser, truckUser => truckUser.truckId)
+  @OneToMany(() => TruckUser, (truckUser) => truckUser.truckId)
   public TruckUser!: TruckUser[];
-
 }
