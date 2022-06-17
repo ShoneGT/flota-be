@@ -1,5 +1,7 @@
-import { Entity, Column, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from 'typeorm'
+import { Entity, Column, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { ClientLoad } from 'src/client-load/entities/client-load.entity'
+import { LoadLocation } from '../../load-locations/entities/load-location.entity'
+
 @Entity()
 export class Load {
   @PrimaryGeneratedColumn()
@@ -11,21 +13,25 @@ export class Load {
   @Column()
   load_id: string
 
-  @Column()
-  pickup_address: string
+  @Column( { nullable: true })
+  customer_load_id: string
 
-  @Column()
-  delivery_address: string
+  @Column({ nullable: true })
+  customer_ref: string
 
-  @Column()
-  pickup_date: Date
+  @Column({ default: false })
+  sealed: boolean
 
-  @Column()
-  delivery_date: Date
+  @Column({ default: true })
+  hazmat: boolean
 
   @Column({ nullable: true })
   note: string
 
   @OneToMany(() => ClientLoad, clientLoad => clientLoad.client)
   public ClientLoad!: ClientLoad[];
+
+
+  @OneToMany(() => LoadLocation, (loadLocation) => loadLocation.load)
+  public loadLocations!: LoadLocation[];
 }

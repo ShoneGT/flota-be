@@ -7,16 +7,16 @@ import { Load } from './entities/load.entity';
 
 @Injectable()
 export class LoadService {
-  constructor(@InjectRepository(Load) private repo: Repository<Load>) { }
+  constructor(@InjectRepository(Load) private repo: Repository<Load>) {}
 
   create(createLoadDto: CreateLoadDto) {
-    const load = this.repo.create(createLoadDto)
+    const load = this.repo.create(createLoadDto);
 
-    return this.repo.save(load)
+    return this.repo.save(load);
   }
 
   findAll() {
-    return this.repo.find()
+    return this.repo.find({ relations: ['loadLocations'] });
   }
 
   findOne(id: number) {

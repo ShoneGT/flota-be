@@ -5,8 +5,8 @@ import { UserModule } from './user/user.module';
 import { RoleModule } from './role/role.module';
 import { User } from './user/entities/user.entity';
 import { Role } from './role/entities/role.entity';
-import { City } from './city/entities/city.entity'
-import { State } from './state/entities/state.entity'
+import { City } from './city/entities/city.entity';
+import { State } from './state/entities/state.entity';
 import { Truck } from './truck/entities/truck.entity';
 import { TruckUser } from './truck-user/entities/truck-user.entity';
 import { Load } from './load/entities/load.entity';
@@ -24,6 +24,9 @@ import { TruckUserModule } from './truck-user/truck-user.module';
 import { Client } from './client/entities/client.entity';
 import { ClientLoadModule } from './client-load/client-load.module';
 import { ClientLoad } from './client-load/entities/client-load.entity';
+import { CustomerModule } from './customer/customer.module';
+import { LoadLocationsModule } from './load-locations/load-locations.module';
+import { LoadLocation } from './load-locations/entities/load-location.entity';
 
 @Module({
   imports: [
@@ -49,9 +52,10 @@ import { ClientLoad } from './client-load/entities/client-load.entity';
         Load,
         LoadTruck,
         Client,
-        ClientLoad
+        ClientLoad,
+        LoadLocation,
       ],
-      synchronize: true
+      synchronize: true,
     }),
     TruckModule,
     LoadModule,
@@ -59,8 +63,10 @@ import { ClientLoad } from './client-load/entities/client-load.entity';
     LoadTruckModule,
     TruckUserModule,
     ClientLoadModule,
+    CustomerModule,
+    LoadLocationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
